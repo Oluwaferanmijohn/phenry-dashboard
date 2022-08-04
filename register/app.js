@@ -38,7 +38,7 @@ function register(evt) {
         password,
         // confirmPassword,
     };
-
+    // email password confirmPassword gender 
     console.log(userObj)
         // console.log(email.value)
         // console.log(password.value)
