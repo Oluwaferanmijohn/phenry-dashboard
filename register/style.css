@@ -153,6 +153,17 @@ p a {
     -o-border-radius: 50%;
 }
 
+#message {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 40%;
+    background-color: green;
+    padding: 5px;
+    color: white;
+    border-radius: 2px;
+}
+
 
 /* Safari */
 

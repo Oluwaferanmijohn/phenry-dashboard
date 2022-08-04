@@ -4,13 +4,12 @@ let email = document.getElementById('email')
 let password = document.getElementById('password')
 let confirmPassword = document.getElementById('confirmPassword')
 const errorMessage = document.getElementById('errorMessage')
-
-
-// registerBtn.addEventListener('click', function(evt) {
-//         evt.preventDefault();
-//         console.log()
-//     })
-//     // or 
+let messageBox = document.getElementById('message')
+    // registerBtn.addEventListener('click', function(evt) {
+    //         evt.preventDefault();
+    //         console.log()
+    //     })
+    //     // or 
 
 
 function register(evt) {
@@ -19,20 +18,20 @@ function register(evt) {
     password = password.value;
     confirmPassword = confirmPassword.value
     evt.preventDefault();
-    if (!username || !email || !password || !confirmPassword) {
-        alert('Please enter all credentials');
-        return;
-    }
-    if (password != confirmPassword) {
-        alert('Passwords do not match');
-        return;
+    // if (!username || !email || !password || !confirmPassword) {
+    //     alert('Please enter all credentials');
+    //     return;
+    // }
+    // if (password != confirmPassword) {
+    //     alert('Passwords do not match');
+    //     return;
 
-    }
-    if (password.length <= 7) {
-        alert('enter at least 8 values of password');
-        return;
+    // }
+    // if (password.length <= 7) {
+    //     alert('enter at least 8 values of password');
+    //     return;
 
-    }
+    // }
     let userObj = {
         // username,
         email,
@@ -46,8 +45,36 @@ function register(evt) {
         // console.log(confirmPassword.value)
 
     fetch('https://test-kinplus.herokuapp.com/api/v1/users/register', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json, text/plain,*/*',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userObj)
+    }).then(function(response) {
+        // console.log(response)
+        return response.json();
+    }).then(function(result) {
+        if (!result.status) {
+            throw new Error(result.message);
+        }
+        messageBox.style.display = 'block'
+        messageBox.textContent = result.message
+        messageBox.style.backgroundColor = 'blue';
+        setTimeout(function() {
+                messageBox.style.display = 'none';
 
-    })
+            }, 3000)
+            // console.log(result)
+    }).catch(function(error) {
+        messageBox.style.display = 'block'
+        messageBox.textContent = error.message
+        messageBox.style.backgroundColor = 'green';
+        setTimeout(function() {
+            messageBox.style.display = 'none';
+
+        }, 1000)
+    });
 }
 registerBtn.addEventListener('click', register);
 
@@ -102,3 +129,10 @@ email.addEventListener('keyup', function() {
 //     confirmPassword,
 // }
 // console.log(userObj)
+
+// setTimeout(() => {
+//     const box = document.getElementsByClassName('box');
+
+//     // 👇️ hides element (still takes up space on page)
+//     box.style.visibility = 'hidden';
+// }, 100);
