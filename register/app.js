@@ -1,8 +1,8 @@
 const registerBtn = document.querySelector('#register-btn')
-const username = document.getElementById('username')
-const email = document.getElementById('email')
-const password = document.getElementById('password')
-const confirmPassword = document.getElementById('confirmPassword')
+let username = document.getElementById('username')
+let email = document.getElementById('email')
+let password = document.getElementById('password')
+let confirmPassword = document.getElementById('confirmPassword')
 const errorMessage = document.getElementById('errorMessage')
 
 
@@ -14,25 +14,40 @@ const errorMessage = document.getElementById('errorMessage')
 
 
 function register(evt) {
+    username = username.value;
+    email = email.value;
+    password = password.value;
+    confirmPassword = confirmPassword.value
     evt.preventDefault();
-    if (!username.value || !email.value || !password.value || !confirmPassword) {
+    if (!username || !email || !password || !confirmPassword) {
         alert('Please enter all credentials');
         return;
     }
-    if (password.value != confirmPassword.value) {
+    if (password != confirmPassword) {
         alert('Passwords do not match');
         return;
 
     }
-    if (password.value.length <= 7) {
+    if (password.length <= 7) {
         alert('enter at least 8 values of password');
         return;
 
     }
-    console.log(username.value)
-    console.log(email.value)
-    console.log(password.value)
-    console.log(confirmPassword.value)
+    let userObj = {
+        // username,
+        email,
+        password,
+        // confirmPassword,
+    };
+
+    console.log(userObj)
+        // console.log(email.value)
+        // console.log(password.value)
+        // console.log(confirmPassword.value)
+
+    fetch('https://test-kinplus.herokuapp.com/api/v1/users/register', {
+
+    })
 }
 registerBtn.addEventListener('click', register);
 
